@@ -4,8 +4,84 @@ The python module for hangman utilities.
 
 """
 
-import random
+import random, os
 from string import ascii_letters
+
+HANGMANPICS = ['''
+     +---+
+     |   |
+         |
+         |
+         |
+         |
+  =========''', '''
+ 
+    +---+
+    |   |
+    O   |
+        |
+        |
+        |
+  =========''', '''
+ 
+    +---+
+    |   |
+    O   |
+    |   |
+        |
+        |
+  =========''', '''
+ 
+    +---+
+    |   |
+    O   |
+   /|   |
+        |
+        |
+  =========''', '''
+ 
+    +---+
+    |   |
+    O   |
+   /|\  |
+        |
+        |
+  =========''', '''
+ 
+    +---+
+    |   |
+    O   |
+   /|\  |
+   /    |
+        |
+  =========''', '''
+ 
+    +---+
+    |   |
+    O   |
+   /|\  |
+   / \  |
+        |
+  =========''']
+
+def cls():
+    os.system('cls' if os.name=='nt' else 'clear')
+
+def game_screen(hangmanIndex, guessedWord):
+    """ Prints the gamescreen of the game
+
+    Parameters
+    -------------
+    hangmanIndex: int, the number of mistakes of the player
+    guessedWord : string, a series of underscores that hides the current word
+
+    Returns
+    ---------
+    void
+    """
+    cls()
+    print(HANGMANPICS[hangmanIndex])
+    print(*guessedWord)
 
 def pick_word():
     """ Picks a random word from wordbank.txt
