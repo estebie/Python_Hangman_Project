@@ -27,8 +27,8 @@ def pick_word():
 
     return randomWord
 
-def reveal_letter(word, guessedWord, guessedLetter):
-    """ Reveal a letter in the guessed word if the correct guess is inputted
+def check_letter(word, guessedWord, guessedLetter):
+    """ Checks a letter in the guessed word if the correct guess is inputted
 
     Parameters
     -------------
@@ -48,9 +48,37 @@ def reveal_letter(word, guessedWord, guessedLetter):
             if (letter == guessedLetter):
                 guessedWord[index] = letter
         guessFlag = True
-        
+
     return guessFlag
 
+def generate_dash(word):
+    """ Generate dash to hide the word
+    
+    Parameters
+    -------------
+    word : string, the current word in play
+    
+    Returns
+    ---------
+    guessedWord : string, a series of underscores that hides the current word
+    """
+    guessedWord = list('_' * (len(word) - 1))
+    return guessedWord
+
+
 if __name__ == "__main__":
-    print(pick_word())
+    #print(pick_word())
+    word = pick_word()
+    print(word)
+    guessedWord = generate_dash(word)
+    print(*guessedWord)
+    while ('_' in guessedWord):
+        guessedLetter = input("Input a letter: ")
+        flag = check_letter(word, guessedWord, guessedLetter)
+		
+        if (not flag):
+            print("Error!")
+        else:
+            print(*guessedWord)
+
     input()
