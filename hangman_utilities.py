@@ -1,6 +1,6 @@
 """
 
-The python module for reading and writing files.
+The python module for hangman utilities.
 
 """
 
