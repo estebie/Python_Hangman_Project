@@ -5,6 +5,7 @@ The python module for hangman utilities.
 """
 
 import random
+from string import ascii_letters
 
 def pick_word():
     """ Picks a random word from wordbank.txt
@@ -26,6 +27,20 @@ def pick_word():
         print('File read error: '+ error)
 
     return randomWord
+
+def generate_dash(word):
+    """ Generate dash to hide the word
+
+    Parameters
+    -------------
+    word : string, the current word in play
+
+    Returns
+    ---------
+    guessedWord : string, a series of underscores that hides the current word
+    """
+    guessedWord = list('_' * (len(word) - 1))
+    return guessedWord
 
 def check_letter(word, guessedWord, guessedLetter):
     """ Checks a letter in the guessed word if the correct guess is inputted
@@ -51,20 +66,49 @@ def check_letter(word, guessedWord, guessedLetter):
 
     return guessFlag
 
-def generate_dash(word):
-    """ Generate dash to hide the word
-    
+def reveal_letter(word, guessedWord):
+    """ Reveals a letter from the guessed word when the guessed character is correct
+
     Parameters
     -------------
     word : string, the current word in play
-    
+    guessedWord : string, a series of underscores that hides the current word
+
     Returns
     ---------
-    guessedWord : string, a series of underscores that hides the current word
+    tries: int, the number of tries that it took guessing the word.
     """
-    guessedWord = list('_' * (len(word) - 1))
-    return guessedWord
+    tries = 0
 
+    while ('_' in guessedWord):
+        guessedLetter = input("Input a letter: ")
+        if (check_char(guessedLetter)):
+            flag = check_letter(word, guessedWord, guessedLetter)
+            
+            if (not flag):
+                print("Error!")
+            else:
+                print(*guessedWord)
+            tries = tries + 1
+        else:
+            print("Error! Please enter a letter")
+            print(*guessedWord)
+
+    return tries
+
+def check_char(letter):
+    """ Check if the letter is a letter
+
+    Parameters
+    -------------
+    letter: char, input from the user
+
+    Returns
+    ---------
+    isLetter: boolean, the flag for checking if the input is a letter
+    """
+    isAlphabet = letter in set(ascii_letters)
+    return isAlphabet
 
 if __name__ == "__main__":
     #print(pick_word())
@@ -72,13 +116,6 @@ if __name__ == "__main__":
     print(word)
     guessedWord = generate_dash(word)
     print(*guessedWord)
-    while ('_' in guessedWord):
-        guessedLetter = input("Input a letter: ")
-        flag = check_letter(word, guessedWord, guessedLetter)
-		
-        if (not flag):
-            print("Error!")
-        else:
-            print(*guessedWord)
-
+    tries = reveal_letter(word, guessedWord)
+    print("It took ", tries, " tries")
     input()
