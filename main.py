@@ -6,6 +6,8 @@ The main program for the mini-game
 
 import HangmanUtilities
 
+game_screen = HangmanUtilities.game_screen
+
 if __name__ == '__main__':
     guessCount = 0
     hangmanIndex = 0
@@ -16,7 +18,7 @@ if __name__ == '__main__':
     guessedLetters = []
 
     while(guessCount < 6):
-        HangmanUtilities.game_screen(hangmanIndex, guessedWord)
+        game_screen(hangmanIndex, guessedWord, guessedLetters)
         guessedLetter = input("Input a letter: ").upper()
         flag = HangmanUtilities.check_letter(word, guessedWord, guessedLetter)
 
@@ -24,16 +26,15 @@ if __name__ == '__main__':
             if (guessedLetter not in guessedLetters):
                 guessedLetters.append(guessedLetter)
                 hangmanIndex = hangmanIndex + 1
-
-        guessCount = guessCount + 1
+                guessCount = guessCount + 1
         
         if ('_' not in guessedWord):
-            HangmanUtilities.game_screen(hangmanIndex, guessedWord)
+            game_screen(hangmanIndex, guessedWord, guessedLetters)
             print("You guessed the word!")
             winFlag = True
             break
 
     if (not winFlag):
-        HangmanUtilities.game_screen(hangmanIndex, guessedWord)
-        print("You lost!")
+        game_screen(hangmanIndex, guessedWord, guessedLetters)
+        print("You lost! Correct word: ", ''.join(word))
     input()

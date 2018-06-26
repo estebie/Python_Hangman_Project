@@ -67,22 +67,23 @@ HANGMANPICS = ['''
 def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
-def game_screen(hangmanIndex, guessedWord):
+def game_screen(hangmanIndex, guessedWord, guessedLetters):
     """ Prints the gamescreen of the game
 
     Parameters
     -------------
     hangmanIndex: int, the number of mistakes of the player
     guessedWord : string, a series of underscores that hides the current word
-
+    guessedLetters : string, a series of incorect guessed characters 
     Returns
     ---------
     void
-    
+
     """
     cls()
     print(HANGMANPICS[hangmanIndex])
     print(*guessedWord)
+    print("\nIncorrect Guess: ",",".join(map(str,guessedLetters)))
 
 def pick_word():
     """ Picks a random word from wordbank.txt
