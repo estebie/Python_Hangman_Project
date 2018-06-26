@@ -78,6 +78,7 @@ def game_screen(hangmanIndex, guessedWord):
     Returns
     ---------
     void
+    
     """
     cls()
     print(HANGMANPICS[hangmanIndex])
